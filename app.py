@@ -7,8 +7,6 @@ import pandas as pd
 app = Flask(__name__)
 model = pickle.load(open("flight_rf.pkl", "rb"))
 
-
-
 @app.route("/")
 @cross_origin()
 def home():

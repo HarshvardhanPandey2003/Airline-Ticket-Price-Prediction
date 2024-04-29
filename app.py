@@ -16,7 +16,7 @@ def home():
 @cross_origin()
 def predict():
     if request.method == "POST":
-
+      try:
         # Date_of_Journey
         date_dep = request.form["Dep_Time"]
         Journey_day = int(pd.to_datetime(date_dep, format="%Y-%m-%dT%H:%M").day)
@@ -310,14 +310,15 @@ def predict():
             d_New_Delhi
         ]])
 
-        output=round(prediction[0],2)
+        output = round(prediction[0], 2)
 
-        return render_template('home.html',prediction_text="Your Flight price is Rs. {}".format(output))
+        return render_template('home.html', prediction_text="Your Flight price is Rs. {}".format(output))
 
+      except Exception as e:
+            print("Error:", str(e))
+            return render_template('home.html', prediction_text="Error occurred while predicting. Please try again.")
 
     return render_template("home.html")
-
-
 
 
 if __name__ == "__main__":
